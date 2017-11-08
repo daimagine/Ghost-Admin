@@ -37,6 +37,7 @@ export default Component.extend(SettingsMenuMixin, {
     twitterDescriptionScratch: alias('model.twitterDescriptionScratch'),
     twitterTitleScratch: alias('model.twitterTitleScratch'),
     slugValue: boundOneWay('model.slug'),
+    featureImageCaption: alias('model.featureImageCaption'),
 
     facebookDescription: or('ogDescriptionScratch', 'customExcerptScratch', 'seoDescription'),
     facebookImage: or('model.ogImage', 'model.featureImage'),
@@ -519,6 +520,21 @@ export default Component.extend(SettingsMenuMixin, {
                 this.showError(error);
                 this.set('selectedAuthor', author);
                 model.rollbackAttributes();
+            });
+        },
+
+        setFeatureImageCaption(featureImageCaption) {
+            let model = this.get('model');
+            let currentFeatureImageCaption = model.get('featureImageCaption');
+
+            if (featureImageCaption === currentFeatureImageCaption) {
+                return;
+            }
+
+            model.set('featureImageCaption', featureImageCaption);
+
+            return model.validate({property: 'featureImageCaption'}).then(() => {
+                return this.get('savePost').perform();
             });
         },
 

@@ -16,6 +16,23 @@
                     remove=(action "clearCoverImage")
                 }}
                 <form>
+                {{#if model.featureImage}}
+                <div class="form-group">
+                    <label for="feature-image-caption">Post Image Caption</label>
+                    <div>
+                        {{gh-input featureImageCaption
+                            class="post-setting-feature-image-caption"
+                            id="feature-image-caption"
+                            name="post-setting-feature-image-caption"
+                            focusOut=(action "setFeatureImageCaption" featureImageCaption)
+                            stopEnterKeyDownPropagation="true"
+                            update=(action (mut featureImageCaption))
+                            data-test-field="feature-image-caption"}}
+                        {{gh-error-message errors=model.errors property="featureImageCaption" data-test-error="feature-image-caption"}}
+                    </div>
+                </div>
+                {{/if}}
+
                 <div class="form-group">
                     <label for="url">Post URL</label>
                     {{!-- new posts don't have a preview link --}}

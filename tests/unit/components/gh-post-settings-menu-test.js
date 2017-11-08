@@ -583,4 +583,22 @@ describe.skip('Unit: Component: post-settings-menu', function () {
             });
         });
     });
+
+    describe('featureImageCaption', function () {
+        it('should update feature image caption', function () {
+            let component = this.subject({
+                model: EmberObject.create({
+                    featureImageCaption: 'featureImageCaption'
+                })
+            });
+
+            run(function () {
+                component.set('featureImageCaption', 'featureImageCaption');
+                component.send('updateFeatureImageCaption', component.get('featureImageCaption'));
+
+                expect(component.get('model.featureImageCaption')).to.equal('featureImageCaption');
+                expect(component.get('featureImageCaption')).to.equal('featureImageCaption');
+            });
+        });
+    });
 });
